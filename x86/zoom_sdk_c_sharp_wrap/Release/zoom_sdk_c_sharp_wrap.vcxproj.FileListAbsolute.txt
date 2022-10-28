@@ -1,0 +1,1 @@
+D:\zoom-c-sharp-wrapper-5.12.2.9319\x86\zoom_sdk_c_sharp_wrap\Release\zoom_sdk_c_sharp_wrap.vcxproj.AssemblyReference.cache
