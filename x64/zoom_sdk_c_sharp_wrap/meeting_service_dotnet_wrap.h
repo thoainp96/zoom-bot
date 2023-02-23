@@ -155,7 +155,6 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 	public value class StartParam4WithoutLogin sealed
 	{
 	public:
-		String^				userID;///< User Id
 		String^				userZAK;///< zoom access token
 		String^				userName;///< User name
 		ZoomUserType		zoomuserType;

@@ -16,8 +16,12 @@ enum SharingStatus
 {
 	Sharing_Self_Send_Begin,///<Begin to share by the user himself.
 	Sharing_Self_Send_End,///<Stop sharing by the user.
+	Sharing_Self_Send_Pure_Audio_Begin,///<Begin to share pure audio by the user himself.
+	Sharing_Self_Send_Pure_Audio_End,///<Stop sharing pure audio by the user.
 	Sharing_Other_Share_Begin,///<Others begin to share.
 	Sharing_Other_Share_End,///<Others stop sharing.
+	Sharing_Other_Share_Pure_Audio_Begin,///<Others begin to share pure audio.
+	Sharing_Other_Share_Pure_Audio_End,///<Others stop sharing pure audio.
 	Sharing_View_Other_Sharing,///<View the sharing of others.
 	Sharing_Pause,///<Pause sharing.
 	Sharing_Resume,///<Resume sharing.
@@ -262,6 +266,13 @@ public:
 	/// \return If the function succeeds, the return value is SDKErr_Success.
 	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
 	virtual SDKError EnableFollowPresenterPointerWhenViewShare(unsigned int userid, bool bEnable) = 0;
+
+	/// \brief Determine if the follow presenter's pointer can be enabled when watching the share on the specified view.
+	/// \param userid Specify the user ID that you want to follow his pointer. 
+	/// \param [out] bCan TRUE indicates that the pointer can be enabled. FALSE indicates that it can't.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise it fails. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError CanEnableFollowPresenterPointerWhenViewShare(unsigned int userid, bool& bCan) = 0;
 
 	/// \brief Pause the current sharing.
 	/// \return If the function succeeds, the return value is SDKErr_Success.

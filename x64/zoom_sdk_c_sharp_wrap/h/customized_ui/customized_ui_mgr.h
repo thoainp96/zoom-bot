@@ -6,6 +6,7 @@
 #ifndef _ZOOM_CUSTOMIZED_UI_MGR_H_
 #define _ZOOM_CUSTOMIZED_UI_MGR_H_
 #include "zoom_sdk_def.h"
+#include "customized_ui\customized_immersive_container.h"
 
 BEGIN_ZOOM_SDK_NAMESPACE
 class ICustomizedVideoContainer;
@@ -25,6 +26,10 @@ public:
 	/// \param pRender Specify the shared render to be destroyed.
 	/// \remarks The specified shared render will be destroyed once the function calls end. The user should complete the operations related to the shared render before the function calls end.
 	virtual void onShareRenderDestroyed(ICustomizedShareRender* pRender) = 0;
+
+	/// \brief The callback will be triggered before the immersive container is destroyed.
+	/// \remarks The immersive container will be destroyed once the function calls end. The user should complete the operations related to the immersive container before the function calls end. 
+	virtual void onImmersiveContainerDestroyed() = 0;
 
 	virtual	~ICustomizedUIMgrEvent() {};
 };
@@ -85,6 +90,21 @@ public:
 	/// \return If the function succeeds, the return value is SDKErr_Success.
 	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
 	virtual SDKError DestroyAllShareRender() = 0;
+
+	/// \brief Create the immersive container.
+	/// \param ppContainer Once called the function successfully, this parameter will store the pointer to the ICustomizedImmersiveContainer*.
+	/// \param hParentWnd Specify the parent window of the immersive container.
+	/// \param rc Specify the position of client area of the immersive container.
+	///The client coordinates corresponds to the client area of the upper-left corner of the parent window.
+	///Only allow creating an object before DestroyImmersiveContainer.
+	/// \return If the function succeeds, the return value is SDKErr_Success, and the return value of ppContainer is not NULL.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError CreateImmersiveContainer(ICustomizedImmersiveContainer** ppContainer, HWND hParentWnd, RECT rc) = 0;
+
+	/// \brief Destroy the immersive container. Once destroyed, the container can no longer be used.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError DestroyImmersiveContainer() = 0;
 
 	virtual ~ICustomizedUIMgr() {}
 };

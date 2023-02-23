@@ -30,6 +30,7 @@ typedef enum
 	SDK_LiveTranscription_OperationType_Delete,
 	SDK_LiveTranscription_OperationType_Complete,
 	SDK_LiveTranscription_OperationType_NotSupported,
+	SDK_LiveTranscription_OperationType_NoTranslation,
 }SDKLiveTranscriptionOperationType;
 
 /// \brief live transcription language interface.
@@ -111,9 +112,16 @@ public:
 	virtual SDKError EnableMeetingManualCaption(bool bEnable) = 0;
 	/// Determine whether manually added closed captions is enabled for the meeting.
 	virtual bool IsMeetingManualCaptionEnabled() = 0;
-	/// \brief Determine whether the legal notice for Live transcript is available
+	/// \brief Determine whether the legal notice for Live transcript is available.
 	/// \return True indicates the legal notice for Live transcript is available. Otherwise False.
 	virtual bool IsLiveTranscriptLegalNoticeAvailable() = 0;
+	/// brief Enable or disable to receive original and translated content.If enable this feature,you need start live transcription.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	/// Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError EnableReceiveSpokenLanguageContent(bool bEnable) = 0;
+	/// \brief Determine whether receive original and translated is available.
+	/// \return True indicates receive original and translated is available. Otherwise False.
+	virtual bool IsReceiveSpokenLanguageContentEnabled() = 0;
 	/// Get the CC legal notices prompt.
 	virtual const wchar_t* getLiveTranscriptLegalNoticesPrompt() = 0;
 	/// Get the CC legal notices explained.

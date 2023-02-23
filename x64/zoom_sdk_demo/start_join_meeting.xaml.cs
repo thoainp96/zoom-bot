@@ -75,6 +75,10 @@ namespace zoom_sdk_demo
         {
             //todo
         }
+        public void onActiveSpeakerVideoUserChanged(UInt32 userId)
+        {
+            Console.WriteLine($"UserId: {userId}");
+        }
         private void RegisterCallBack()
         {
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Add_CB_onMeetingStatusChanged(onMeetingStatusChanged);
@@ -88,6 +92,8 @@ namespace zoom_sdk_demo
                 GetMeetingParticipantsController().Add_CB_onUserLeft(onUserLeft);
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().
                 GetMeetingParticipantsController().Add_CB_onUserNameChanged(onUserNameChanged);
+            ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().
+                GetMeetingVideoController().Add_CB_onActiveSpeakerVideoUserChanged(onActiveSpeakerVideoUserChanged);
         }
         private void button_start_api_Click(object sender, RoutedEventArgs e)
         {
@@ -96,7 +102,6 @@ namespace zoom_sdk_demo
             param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_WITHOUT_LOGIN;
             ZOOM_SDK_DOTNET_WRAP.StartParam4WithoutLogin start_withoutlogin_param = new ZOOM_SDK_DOTNET_WRAP.StartParam4WithoutLogin();
             start_withoutlogin_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text);
-            start_withoutlogin_param.userID = textBox_userid_api.Text;
             start_withoutlogin_param.userZAK = textBox_AccessToken.Text;
             start_withoutlogin_param.userName = textBox_username_api.Text;
             start_withoutlogin_param.zoomuserType = ZOOM_SDK_DOTNET_WRAP.ZoomUserType.ZoomUserType_APIUSER;

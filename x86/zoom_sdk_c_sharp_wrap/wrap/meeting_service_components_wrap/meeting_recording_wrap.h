@@ -37,8 +37,6 @@ DEFINE_FUNC_0(RequestCustomizedLocalRecordingSource, SDKError)
 //virtual RecordingStatus GetCloudRecordingStatus() = 0;
 DEFINE_FUNC_0(GetCloudRecordingStatus, RecordingStatus)
 
-DEFINE_FUNC_0(StartRawRecording, SDKError)
-
 
 //virtual void onRecording2MP4Done(bool bsuccess, int iResult, const wchar_t* szPath) = 0;
 CallBack_FUNC_3(onRecording2MP4Done, bool, bsuccess, int, iResult, const wchar_t*, szPath)
@@ -52,5 +50,9 @@ CallBack_FUNC_1(onCloudRecordingStatus, RecordingStatus, status)
 CallBack_FUNC_1(onRecordPriviligeChanged, bool, bCanRec)
 //virtual void onCustomizedLocalRecordingSourceNotification(ICustomizedLocalRecordingLayoutHelper* layout_helper) = 0;
 CallBack_FUNC_1(onCustomizedLocalRecordingSourceNotification, ICustomizedLocalRecordingLayoutHelper*, layout_helper)
+//virtual void onLocalRecordingPrivilegeRequestStatus(RequestLocalRecordingStatus status) = 0;
+CallBack_FUNC_1(onLocalRecordingPrivilegeRequestStatus, RequestLocalRecordingStatus, status)
+//virtual void onLocalRecordingPrivilegeRequested(IRequestLocalRecordingPrivilegeHandler* handler) = 0;	
+CallBack_FUNC_1(onLocalRecordingPrivilegeRequested, IRequestLocalRecordingPrivilegeHandler*, handler)
 END_CLASS_DEFINE(IMeetingRecordingController)
 END_ZOOM_SDK_NAMESPACE

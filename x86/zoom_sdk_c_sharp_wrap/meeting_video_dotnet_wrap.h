@@ -11,6 +11,7 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 
 	public delegate void onUserVideoStatusChange(unsigned int userId, VideoStatus status);
 	public delegate void onSpotlightVideoChangeNotification(array<unsigned int>^ lstSpotlightedUserID);
+	public delegate void onActiveSpeakerVideoUserChanged(unsigned int userId);
 	public interface class IMeetingVideoControllerDotNetWrap
 	{
 	public:
@@ -22,11 +23,14 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		SDKError SpotlightVideo(unsigned int userid);
 		SDKError UnSpotlightVideo(unsigned int userid);
 		SDKError HideOrShowNoVideoUserOnVideoWall(bool bHide);
+		virtual SDKError AskAttendeeToStartVideo(unsigned int userid);
 
 		void Add_CB_onUserVideoStatusChange(onUserVideoStatusChange^ cb);
 		void Add_CB_onSpotlightVideoChangeNotification(onSpotlightVideoChangeNotification^ cb);
+		void Add_CB_onActiveSpeakerVideoUserChanged(onActiveSpeakerVideoUserChanged^ cb);
 		void Remove_CB_onUserVideoStatusChange(onUserVideoStatusChange^ cb);
 		void Remove_CB_onSpotlightVideoChangeNotification(onSpotlightVideoChangeNotification^ cb);
+		void Remove_CB_onActiveSpeakerVideoUserChanged(onActiveSpeakerVideoUserChanged^ cb);
 	};
 
 	private ref class CMeetingVideoControllerDotNetWrap sealed : public IMeetingVideoControllerDotNetWrap
@@ -47,6 +51,7 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		virtual SDKError SpotlightVideo(unsigned int userid);
 		virtual SDKError UnSpotlightVideo(unsigned int userid);
 		virtual SDKError HideOrShowNoVideoUserOnVideoWall(bool bHide);
+		virtual SDKError AskAttendeeToStartVideo(unsigned int userid);
 
 		virtual void Add_CB_onUserVideoStatusChange(onUserVideoStatusChange^ cb)
 		{
@@ -68,12 +73,24 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 			event_onSpotlightVideoChangeNotification -= cb;
 		}
 
+		virtual void Add_CB_onActiveSpeakerVideoUserChanged(onActiveSpeakerVideoUserChanged^ cb)
+		{
+			event_onActiveSpeakerVideoUserChanged += cb;
+		}
+
+		virtual void Remove_CB_onActiveSpeakerVideoUserChanged(onActiveSpeakerVideoUserChanged^ cb)
+		{
+			event_onActiveSpeakerVideoUserChanged -= cb;
+		}
+
 		void ProcUserVideoStatusChange(unsigned int userId, VideoStatus status);
 		void ProcSpotlightedUserListChangeNotification(array<unsigned int>^ lstSpotlightedUserID);
+		void ProcOnActiveSpeakerVideoUserChanged(unsigned int userId);
 
 	private:
 		event onUserVideoStatusChange^ event_onUserVideoStatusChange;
 		event onSpotlightVideoChangeNotification^ event_onSpotlightVideoChangeNotification;
+		event onActiveSpeakerVideoUserChanged^ event_onActiveSpeakerVideoUserChanged;
 		static CMeetingVideoControllerDotNetWrap^ m_Instance = gcnew CMeetingVideoControllerDotNetWrap;
 	};
 }

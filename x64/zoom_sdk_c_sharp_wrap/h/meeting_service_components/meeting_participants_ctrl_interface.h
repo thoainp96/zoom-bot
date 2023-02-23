@@ -122,6 +122,10 @@ public:
 	/// \return TRUE indicates that the specified user is a interpreter, otherwise not.
 	virtual bool IsInterpreter() = 0;
 
+	/// \brief Determine whether the user specified by the current information is a sign language interpreter or not.
+	/// \return TRUE indicates that the specified user is a sign language  interpreter, otherwise false.
+	virtual bool IsSignLanguageInterpreter() = 0;
+
 	/// \brief Get the active language, if the user is a interpreter.
 	/// \return If success, the return value is the active language abbreviation, Otherwise the return value is ZERO(0).
 	virtual const wchar_t* GetInterpreterActiveLanguage() = 0;
@@ -129,6 +133,14 @@ public:
 	/// \brief Get the local recording status.
 	/// \return The status of the local recording status. For more details, see \link RecordingStatus \endlink structure
 	virtual RecordingStatus GetLocalRecordingStatus() = 0;
+
+	/// \brief Determine whether the user has started a raw live stream.
+	/// \return TRUE indicates that the specified user has started a raw live stream, otherwise false.
+	virtual bool IsRawLiveStreaming() = 0;
+
+	/// \brief Determine whether the user has raw live stream privilege.
+	/// \return TRUE indicates that the specified user has raw live stream privilege, otherwise false.
+	virtual bool HasRawLiveStreamPrivilege() = 0;
 
 	virtual ~IUserInfo(){};
 };

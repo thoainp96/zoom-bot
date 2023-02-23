@@ -43,9 +43,35 @@ DEFINE_FUNC_0(StopLiveStream, SDKError)
 DEFINE_FUNC_0(GetSupportLiveStreamURL, IList<IMeetingLiveStreamItem*>*)
 // virtual LiveStreamStatus GetCurrentLiveStreamStatus() = 0;
 DEFINE_FUNC_0(GetCurrentLiveStreamStatus, LiveStreamStatus)
+//virtual SDKError StartRawLiveStream(const wchar_t* broadcastURL) = 0;
+DEFINE_FUNC_1(StartRawLiveStream, SDKError, const wchar_t*, broadcastURL)
+//virtual SDKError StopRawLiveStream() = 0;
+DEFINE_FUNC_0(StopRawLiveStream, SDKError)
+//virtual bool IsRawLiveStreamSupported() = 0;
+DEFINE_FUNC_0(IsRawLiveStreamSupported, bool)
+//virtual SDKError CanStartRawLiveStream() = 0;
+DEFINE_FUNC_0(CanStartRawLiveStream, SDKError)
+//virtual SDKError RequestRawLiveStream(const wchar_t* broadcastURL) = 0;
+DEFINE_FUNC_1(RequestRawLiveStream, SDKError, const wchar_t*, broadcastURL)
+//virtual SDKError RemoveRawLiveStreamPrivilege(unsigned int userid) = 0;
+DEFINE_FUNC_1(RemoveRawLiveStreamPrivilege, SDKError, unsigned int, userid)
+//virtual IList<RawLiveStreamInfo>* GetRawLiveStreamingInfoList() = 0;
+DEFINE_FUNC_0(GetRawLiveStreamingInfoList, IList<RawLiveStreamInfo>*)
+//virtual IList<unsigned int>* GetRawLiveStreamPrivilegeUserList() = 0;
+DEFINE_FUNC_0(GetRawLiveStreamPrivilegeUserList, IList<unsigned int>*)
 
 // virtual void onLiveStreamStatusChange(LiveStreamStatus status) = 0;
 CallBack_FUNC_1(onLiveStreamStatusChange, LiveStreamStatus, status)
+//virtual void onRawLiveStreamPrivilegeChanged(bool bHasPrivilege) = 0;
+CallBack_FUNC_1(onRawLiveStreamPrivilegeChanged, bool, bHasPrivilege)
+//virtual void onRawLiveStreamPrivilegeRequestTimeout() = 0;
+CallBack_FUNC_0(onRawLiveStreamPrivilegeRequestTimeout)
+//virtual void onUserRawLiveStreamPrivilegeChanged(unsigned int userid, bool bHasPrivilege) = 0;
+CallBack_FUNC_2(onUserRawLiveStreamPrivilegeChanged, unsigned int, userid, bool, bHasPrivilege)
+//virtual void onRawLiveStreamPrivilegeRequested(IRequestRawLiveStreamPrivilegeHandler* handler) = 0;
+CallBack_FUNC_1(onRawLiveStreamPrivilegeRequested, IRequestRawLiveStreamPrivilegeHandler*, handler)
+//virtual void onUserRawLiveStreamingStatusChanged(IList<RawLiveStreamInfo>* liveStreamList) = 0;
+CallBack_FUNC_1(onUserRawLiveStreamingStatusChanged, IList<RawLiveStreamInfo>*, liveStreamList)
 
 END_CLASS_DEFINE(IMeetingLiveStreamController)
 END_ZOOM_SDK_NAMESPACE

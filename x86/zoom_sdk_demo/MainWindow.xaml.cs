@@ -25,7 +25,6 @@ namespace zoom_sdk_demo
         start_join_meeting start_meeting_wnd = new start_join_meeting();
         public MainWindow()
         {
-            Console.WriteLine($"MainWindow");
             InitializeComponent(); 
         }
 
@@ -34,26 +33,20 @@ namespace zoom_sdk_demo
         {
             if (ZOOM_SDK_DOTNET_WRAP.AuthResult.AUTHRET_SUCCESS == ret)
             {
-                Console.WriteLine($"authen sucess");
                 start_meeting_wnd.Show();
             }
             else//error handle.todo
             {
-                Console.WriteLine($"authen error");
                 Show();
             }
         }
         public void onLoginRet(LOGINSTATUS ret, IAccountInfo pAccountInfo, LOGINFAILREASON reason)
         {
-            Console.WriteLine($"onLoginRet");
+            //todo
         }
         public void onLogout()
         {
-            Console.WriteLine($"onLogout");
-        }
-        public void getRawData(ValueType a, UInt32 b)
-        {
-            Console.WriteLine($"auth node_id: {b}");
+            //todo
         }
         private void button_auth_Click(object sender, RoutedEventArgs e)
         {
@@ -64,10 +57,9 @@ namespace zoom_sdk_demo
             //
             ZOOM_SDK_DOTNET_WRAP.AuthContext param = new ZOOM_SDK_DOTNET_WRAP.AuthContext();
             param.jwt_token = textBox_apptoken.Text;
-            Console.WriteLine($"jwt_token: {param.jwt_token}");
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetAuthServiceWrap().SDKAuth(param);
-            ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetRawAudioServiceWrap().SetUpAudioStream(getRawData);
             Hide();
+            start_meeting_wnd.Show();
         }
 
         void Wnd_Closing(object sender, CancelEventArgs e)

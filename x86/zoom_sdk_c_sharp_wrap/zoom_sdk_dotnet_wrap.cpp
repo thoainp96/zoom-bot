@@ -90,15 +90,9 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 
 		return CCustomizedUIMgrDotNetWrap::Instance;
 	}
-
-
 	
 	ICustomizedResourceHelperDotNetWrap^ CZoomSDKeDotNetWrap::RetrieveCustomizedResourceHelperWrap()
 	{
 		return CCustomizedResourceHelperDotNetWrap::Instance;
-	}
-	IRawAudioServiceDotNetWrap^ CZoomSDKeDotNetWrap::GetRawAudioServiceWrap() {
-
-		return CRawAudioServiceDotNetWrap::Instance;
 	}
 }

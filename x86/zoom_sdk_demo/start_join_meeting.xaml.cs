@@ -13,9 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel; // CancelEventArgs
 using ZOOM_SDK_DOTNET_WRAP;
-using ZOOMSDK;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 
 namespace zoom_sdk_demo
 {
@@ -47,7 +44,6 @@ namespace zoom_sdk_demo
 
         public void onUserJoin(Array lstUserID)
         {
-            ValueType type1 = 1;
             if (null == (Object)lstUserID)
                 return;
 
@@ -60,12 +56,6 @@ namespace zoom_sdk_demo
                 {
                     string name = user.GetUserNameW();
                     Console.WriteLine(name);
-                    ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingRecordingController().AllowLocalRecording(userid);
-                    Console.WriteLine($"AllowLocalRecording: {err}");
-                    err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingRecordingController().StartRawRecording();
-                    Console.WriteLine($"StartRawRecording: {err}");
-                    ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetRawAudioServiceWrap().SetUpAudioStream(getRawData);
-                    Console.WriteLine($"getRawData");
                 }
             }
         }
@@ -85,11 +75,10 @@ namespace zoom_sdk_demo
         {
             //todo
         }
-        public void getRawData(ValueType a, UInt32 b)
+        public void onActiveSpeakerVideoUserChanged(UInt32 userId)
         {
-            Console.WriteLine($" join meeting node_id: {b}");
+            Console.WriteLine($"UserId: {userId}");
         }
-        public delegate void getData(sbyte a, uint b);
         private void RegisterCallBack()
         {
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Add_CB_onMeetingStatusChanged(onMeetingStatusChanged);
@@ -103,10 +92,8 @@ namespace zoom_sdk_demo
                 GetMeetingParticipantsController().Add_CB_onUserLeft(onUserLeft);
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().
                 GetMeetingParticipantsController().Add_CB_onUserNameChanged(onUserNameChanged);
-            //getData handler = getRawData;
-           
-
-            
+            ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().
+                GetMeetingVideoController().Add_CB_onActiveSpeakerVideoUserChanged(onActiveSpeakerVideoUserChanged);
         }
         private void button_start_api_Click(object sender, RoutedEventArgs e)
         {
@@ -115,19 +102,15 @@ namespace zoom_sdk_demo
             param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_WITHOUT_LOGIN;
             ZOOM_SDK_DOTNET_WRAP.StartParam4WithoutLogin start_withoutlogin_param = new ZOOM_SDK_DOTNET_WRAP.StartParam4WithoutLogin();
             start_withoutlogin_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text);
-            start_withoutlogin_param.userID = textBox_userid_api.Text;
             start_withoutlogin_param.userZAK = textBox_AccessToken.Text;
             start_withoutlogin_param.userName = textBox_username_api.Text;
             start_withoutlogin_param.zoomuserType = ZOOM_SDK_DOTNET_WRAP.ZoomUserType.ZoomUserType_APIUSER;
             param.withoutloginStart = start_withoutlogin_param;
 
             ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Start(param);
-            ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingRecordingController().StartRawRecording();
             if (ZOOM_SDK_DOTNET_WRAP.SDKError.SDKERR_SUCCESS == err)
             {
                 Hide();
-                err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingRecordingController().StartRawRecording();
-                ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetRawAudioServiceWrap().SetUpAudioStream(getRawData);
             }
             else//error handle
             { }
@@ -145,20 +128,12 @@ namespace zoom_sdk_demo
             param.withoutloginJoin = join_api_param;
 
             ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
-           
-            ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingRecordingController().StartRawRecording();
-            Console.WriteLine($"Join: {err}");
             if (ZOOM_SDK_DOTNET_WRAP.SDKError.SDKERR_SUCCESS == err)
             {
-                //ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetRawAudioServiceWrap().SetUpAudioStream(getRawData);
-                Console.WriteLine($"Join SDKERR_SUCCESS");
                 Hide();
             }
             else//error handle
-            {
-                Console.WriteLine($"error");
-                //ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetRawAudioServiceWrap().SetUpAudioStream(getRawData);
-            }
+            { }
         }
 
         void Wnd_Closing(object sender, CancelEventArgs e)

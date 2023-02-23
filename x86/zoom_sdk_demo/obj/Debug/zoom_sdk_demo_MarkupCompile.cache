@@ -1,19 +1,19 @@
 ﻿zoom_sdk_demo
 
 
-exe
+winexe
 C#
 .cs
-D:\zoom-c-sharp-wrapper-5.12.2.9319\x86\zoom_sdk_demo\obj\Debug\
+D:\Source\zoom\zoom\x86\zoom_sdk_demo\obj\Debug\
 zoom_sdk_demo
 none
 false
 DEBUG;TRACE
-D:\zoom-c-sharp-wrapper-5.12.2.9319\x86\zoom_sdk_demo\App.xaml
-2-268338058
+D:\Source\zoom\zoom\x86\zoom_sdk_demo\App.xaml
+2-2145009231
 
-6-852032940
-141268439861
+6-1991331771
+14-2097452125
 MainWindow.xaml;start_join_meeting.xaml;
 
 False

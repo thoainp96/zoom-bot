@@ -537,6 +537,146 @@ public:
 	virtual ICameraController* GetTestCameraController() = 0;
 };
 
+/// \brief lip-sync avatar callback event.
+///
+class ILipSyncAvatarPreviewHelperEvent
+{
+public:
+	virtual ~ILipSyncAvatarPreviewHelperEvent() {}
+
+	/// \brief A window is needed to show the lip-sync preview. This event notifies that there is no window handle or a wrong window handle is used. 
+	virtual void OnNoWindowToShowLipsyncPreview() = 0;
+};
+
+/// \brief lip-sync avatar preview helper interface.
+///
+class ILipSyncAvatarPreviewHelper
+{
+public:
+	/// \brief Video device test callback event handler. 
+	/// \param pEvent A pointer to the ILipSyncAvatarPreviewHelperEvent that receives lip sync preview events. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Call the function before using any other interface of the same class.
+	virtual SDKError SetEvent(ILipSyncAvatarPreviewHelperEvent* pEvent) = 0;
+
+	/// \brief Set the window and the rectangle to display the lip sync avatar preview.
+	/// \param hParentWnd Specify the window to display lip-sync avatar preview.
+	/// \param rc Specify a rectangle on the window to display the lip-sync avatar preview. The default value is {0,0,0,0}, which means the whole client area of the window.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks This function SHOULD only be called ONCE. Any redundant calling will return SDKERR_WRONG_USAGE.
+	virtual SDKError SetLipSyncAvatarPreviewParentWnd(HWND hParentWnd, RECT rc = _SDK_TEST_VIDEO_INIT_RECT) = 0;
+
+	/// \brief Start to preview lip sync avatar. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks The function can not work if no event is set or no window handle is set.
+	virtual SDKError StartLipSyncAvatarPreview() = 0;
+
+	/// \brief Stop to preview lip-sync avatar.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks The function can not work if there is no event or window handle to be set.
+	virtual SDKError StopLipSyncAvatarPreview() = 0;
+
+	virtual ~ILipSyncAvatarPreviewHelper() {};
+};
+
+/// \brief 3D avatar image information interface.
+///
+class I3DAvatarImageInfo
+{
+public:
+	/// \brief Determine if the current image is being used.
+	/// \return TRUE indicates that the current image is used as the video filter image.
+	virtual bool IsSelected() = 0;
+
+	/// \brief Get the file path of the current image.
+	/// \return If the function succeeds, the return value is the file path of current image.
+	///Otherwise failed, the return value is NULL.
+	virtual const wchar_t* GetImageFilePath() = 0;
+
+	/// \brief Get the name of the current image.
+	/// \return If the function succeeds, the return value is the name of the current image.
+	///Otherwise failed, the return value is NULL.
+	virtual const wchar_t* GetImageName() = 0;
+
+	/// \brief Get the index of the current image.
+	/// \return If the function succeeds, the return value is the index of current image.
+	/// \remark If no image is selected, the index value will be -1.
+	virtual int GetIndex() = 0;
+
+	virtual ~I3DAvatarImageInfo() {};
+};
+
+/// \brief lip sync avatar context Callback Event.
+/// \deprecated This class is marked as deprecated.
+class ILipSyncAvatarSettingContextEvent
+{
+public:
+	virtual ~ILipSyncAvatarSettingContextEvent() {}
+
+	/// \brief Callback event of notification that the thumbnails of all lip sync avatar items have been downloaded.
+	/// \deprecated This interface is marked as deprecated, and is replaced by on3DAvatarItemThumbnailsDownloaded.
+	virtual void onLipSyncAvatarItemThumbnailsDownloaded() = 0;
+
+	/// \brief Callback event notifying that the selected lip sync avatar item is downloading.
+	/// \param index The index of the selected lip-sync avatar item. 
+	/// \deprecated This interface is marked as deprecated, and is replaced by on3DAvatarItemDataDownloading.
+	virtual void onLipSyncAvatarItemDataDownloading(int index) = 0;
+
+	/// \brief Callback event notifying that the selected lip-sync avatar item has been downloaded successfully.
+	/// \param index The index of the selected lip sync avatar item. 
+	/// \param bSuccess TRUE indicates the selected lip-sync avatar item has been downloaded successfully.
+	/// \deprecated This interface is marked as deprecated, and is replaced by on3DAvatarItemDataDownloaded.
+	virtual void onLipSyncAvatarItemDataDownloaded(bool bSuccess, int index) = 0;
+};
+
+/// \brief Lip sync avatar setting interface.
+/// \deprecated This class be marked as deprecated.
+class ILipSyncAvatarSettingContext
+{
+public:
+	/// \brief Lip sync avatar callback handler. 
+	/// \param pEvent A pointer to the ILipSyncAvatarSettingContextEvent that receives lip sync avatar event. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Call the function before using any other interface of the same class.
+	/// \deprecated This interface is marked as deprecated, and is replaced by I3DAvatarSettingContext.SetEvent .
+	virtual SDKError SetEvent(ILipSyncAvatarSettingContextEvent* pEvent) = 0;
+
+	/// \brief Determine if the lip-sync avatar feature is supported by video device.
+	/// \return TRUE indicates that the video device supports the 3D avatar feature.
+	/// \deprecated This interface is marked as deprecated, and is replaced by I3DAvatarSettingContext.Is3DAvatarSupportedByDevice.
+	virtual bool Is3DAvatarSupportedByDevice() = 0;
+
+	/// \brief Determine if the lip-sync avatar feature is enabled.
+	/// \return TRUE indicates the lip-sync feature is enabled.
+	/// \deprecated This interface is marked as deprecated, and is replaced by Is3DAvatarEnabled.
+	virtual bool IsLipSyncAvatarEnabled() = 0;
+
+	/// \brief Get the list of the lip-sync avatar images.
+	/// \return If there are images in the list, the return value is a list of the pointers to I3DAvatarImageInfo.
+	///Otherwise the function returns NULL. To get extended information, see \link IVideoFilterImageInfo \endlink enum.
+	/// \deprecated This interface is marked as deprecated, and is replaced by Get3DAvatarImageList
+	virtual IList<I3DAvatarImageInfo* >* GetLipSyncAvatarImageList() = 0;
+
+	/// \brief Specify an image to be the lip sync avatar image.
+	/// \param pImage Specify the image to use. To get extended information, see \link I3DAvatarImageInfo \endlink enum.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	/// \deprecated This interface is marked as deprecated, and is replaced instead by Set3DAvatarImage
+	virtual SDKError SetLipSyncAvatarImage(I3DAvatarImageInfo* pImage) = 0;
+
+	/// \brief Get the pointer to ILipSyncAvatarPreviewHelper which is used to preview the lip-sync avatar.
+	/// \return If the function succeeds, the return value is the pointer to ILipSyncAvatarPreviewHelper.
+	///Otherwise the function fails, and returns NULL.
+	///For more details, see \link ILipSyncAvatarPreviewHelper \endlink.
+	/// \deprecated This interface is marked as deprecated, and is replaced by I3DAvatarSettingContext.GetLipSyncAvatarPreviewHelper .
+	virtual ILipSyncAvatarPreviewHelper* GetLipSyncAvatarPreviewHelper() = 0;
+};
+
 /// \brief Video setting context callback event.
 class IVideoSettingContextEvent
 {
@@ -720,6 +860,28 @@ public:
 	/// \return Enabled or disabled.
 	virtual bool IsHideNoVideoUsersOnWallViewEnabled() = 0;
 
+	/// \brief Enable or disable to hide the userself's view.
+	/// \param bEnable TRUE indicates to enable to hide the userself's view.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Valid only for Zoom style user interface mode.
+	virtual SDKError EnableHideSelfView(bool bEnable) = 0;
+
+	/// \brief Get the flag to enable/disable to hide userself's view.
+	/// \return Enabled or disabled.
+	/// \remarks Valid only for Zoom style user interface mode.
+	virtual SDKError IsHideSelfViewEnabled(bool& bEnabled) = 0;
+
+	/// \brief Enable or disable to stop incoming video.
+	/// \param bEnable TRUE indicates to enable to stop incoming video.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError EnableStopIncomingVideo(bool bEnable) = 0;
+
+	/// \brief Get the flag to enable/disable to stop in coming video.
+	/// \return Enabled or disabled.
+	virtual bool IsStopIncomingVideoEnabled() = 0;
+
 	/// \brief Get the pointer to ITestVideoDeviceHelper which is used to test camera device.
 	/// \return If the function succeeds, the return value is the pointer to ITestVideoDeviceHelper.
 	///Otherwise failed, returns NULL.
@@ -743,6 +905,30 @@ public:
 	/// \brief Get the flag to enable to show the video preview dialog when join meeting.
 	/// \return Enabled or disabled.
 	virtual bool IsVideoPreviewDialogEnabled() = 0;
+
+	/// \brief Determine whether to show audio-only avatar when the user's video feature is supported by the meeting.
+	/// \return true indicates enabled. False not.
+	/// \deprecated This interface is marked as deprecated. The return value will not be expected, always return false.
+	virtual bool IsSupportLipSyncAvatar() = 0;
+
+	/// \brief Enable or disable audio-only 3d avatar when the user's video is off.
+	/// \param bEnable TRUE indicates to show audio-only 3d avatar when the user's video is off.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and return an error. To get extended error information, see \link SDKError \endlink enum.
+	/// \deprecated This interface is marked as deprecated. The return value will not be expected, always return SDKERR_WRONG_USAGE.
+	virtual SDKError EnableLipSyncAvatarWhenVideoOff(bool bEnable) = 0;
+
+	/// \brief Get the flag to enable or disable audio-only 3d avatar when the user's video is off.
+	/// \return Enabled or disabled.
+	/// \deprecated This interface is marked as deprecated. The return value will not be expected, always return false.
+	virtual bool IsLipSyncAvatarWhenVideoOffEnabled() = 0;
+
+	/// \brief Get the pointer to ILipSyncAvatarSettingContext which is used to set lip sync avatar.
+	/// \return If the function succeeds, the return value is the pointer to ILipSyncAvatarSettingContext.
+	///Otherwise the function fails, and returns NULL.
+	///For more details, see \link ILipSyncAvatarSettingContext \endlink.
+	/// \deprecated This interface is marked as deprecated.
+	virtual ILipSyncAvatarSettingContext* GetLipSyncAvatarSettingContext() = 0;
 };
 
 /// \brief Audio setting context callback event.
@@ -1450,6 +1636,7 @@ typedef enum
 	ZoomSDKVideoEffectType_None = 0,
 	ZoomSDKVideoEffectType_Filter = 1,
 	ZoomSDKVideoEffectType_Frame = 2,
+	ZoomSDKVideoEffectType_CustomFilter = 3,
 	ZoomSDKVideoEffectType_Sticker = 4,
 }ZoomSDKVideoEffectType;
 
@@ -1493,18 +1680,35 @@ public:
 	/// \brief Callback event of notification that the thumbnail of the video filter item has been download
 	/// \param type The type of the video filter item.
 	/// \param index The index of the video filter item.
+	/// this interface be marked as deprecated, then it will be instead by onVideoFilterItemThumnailsDownloaded
 	virtual void onVideoFilterItemDataDownloaded(ZoomSDKVideoEffectType type, int index) = 0;
 
 	/// \brief Callback event of notification that the selected video filter item needs to download.
 	/// \param type The type of the selected video filter item.
 	/// \param index The index of the selected video filter item. 
+	/// this interface be marked as deprecated, then it will be instead by onVideoFilterItemDataDownloading
 	virtual void onVideoFilterItemDataNeedPrepare(ZoomSDKVideoEffectType type, int index) = 0;
 
 	/// \brief Callback event of notification that the selected video filter item whether has been downloaded successfully.
 	/// \param type The type of the selected video filter item.
 	/// \param index The index of the selected video filter item. 
 	/// \param bSuccess TRUE indicates the selected video filter item has been downloaded successfully.
+	/// this interface be marked as deprecated, then it will be instead by onVideoFilterItemDataDownloaded
 	virtual void onVideoFilterItemDataReady(bool bSuccess, ZoomSDKVideoEffectType type, int index) = 0;
+
+	/// \brief Callback event of notification that the thumbnails of all video filter items have been downloaded
+	virtual void onVideoFilterItemThumnailsDownloaded() = 0;
+
+	/// \brief Callback event of notification that the selected video filter item is downloading.
+	/// \param type The type of the selected video filter item.
+	/// \param index The index of the selected video filter item. 
+	virtual void onVideoFilterItemDataDownloading(ZoomSDKVideoEffectType type, int index) = 0;
+
+	/// \brief Callback event of notification that the selected video filter item whether has been downloaded successfully.
+	/// \param type The type of the selected video filter item.
+	/// \param index The index of the selected video filter item. 
+	/// \param bSuccess TRUE indicates the selected video filter item has been downloaded successfully.
+	virtual void onVideoFilterItemDataDownloaded(bool bSuccess, ZoomSDKVideoEffectType type, int index) = 0;
 };
 
 /// \brief Video filter setting interface.
@@ -1548,6 +1752,200 @@ public:
 	///For more details, see \link ITestVideoDeviceHelper \endlink.
 	virtual ITestVideoDeviceHelper* GetTestVideoDeviceHelper() = 0;
 };
+
+/// \brief 3D avatar context callback event.
+///
+class I3DAvatarSettingContextEvent
+{
+public:
+	virtual ~I3DAvatarSettingContextEvent() {}
+
+	/// \brief Callback event notifying that  all 3D avatar items' thumbnails have been downloaded
+	virtual void on3DAvatarItemThumbnailsDownloaded() = 0;
+
+	/// \brief Callback event notifying that the selected 3d avatar item is downloading.
+	/// \param index The index of the selected 3d avatar item. 
+	virtual void on3DAvatarItemDataDownloading(int index) = 0;
+
+	/// \brief Callback event notifying whether or not the selected 3d avatar item has been downloaded successfully.
+	/// \param index The index of the selected 3d avatar item. 
+	/// \param bSuccess TRUE indicates the selected 3d avatar item has been downloaded successfully.
+	virtual void on3DAvatarItemDataDownloaded(bool bSuccess, int index) = 0;
+};
+
+/// \brief 3D avatar setting interface.
+class I3DAvatarSettingContext
+{
+public:
+	/// \brief 3D avatar callback handler. 
+	/// \param pEvent A pointer to the I3DAvatarSettingContextEvent that receives 3D avatar event. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Call the function before using any other interface of the same class.
+	virtual SDKError SetEvent(I3DAvatarSettingContextEvent* pEvent) = 0;
+
+	/// \brief Determine if the 3D avatar feature is supported by video device.
+	/// \return TRUE indicates that the video device supports the 3D avatar feature.
+	virtual bool Is3DAvatarSupportedByDevice() = 0;
+
+	/// \brief Determine if the 3D avatar feature is enabled.
+	/// \return TRUE indicates the video filter feature is enabled.
+	virtual bool Is3DAvatarEnabled() = 0;
+
+	/// \brief Get the list of the video filter images.
+	/// \return If there are images in the list, the return value is a list of the pointers to I3DAvatarImageInfo.
+	///Otherwise return NULL. To get extended information, see \link IVideoFilterImageInfo \endlink enum.
+	virtual IList<I3DAvatarImageInfo* >* Get3DAvatarImageList() = 0;
+
+	/// \brief Specify an image to be the video filter image.
+	/// \param pImage Specify the image to use. To get extended information, see \link I3DAvatarImageInfo \endlink enum.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError Set3DAvatarImage(I3DAvatarImageInfo* pImage) = 0;
+
+	/// \brief Get the pointer to ITestVideoDeviceHelper which is used to preview the video with 3d avatar image.
+	/// \return If the function succeeds, the return value is the pointer to ITestVideoDeviceHelper.
+	///Otherwise failed, returns NULL.
+	///For more details, see \link ITestVideoDeviceHelper \endlink.
+	virtual ITestVideoDeviceHelper* GetTestVideoDeviceHelper() = 0;
+
+	/// \brief Get the pointer to ILipSyncAvatarPreviewHelper which is used to preview the lip-sync avatar.
+	/// \return If the function succeeds, the return value is the pointer to ILipSyncAvatarPreviewHelper.
+	///Otherwise the function fails, and returns NULL.
+	///For more details, see \link ILipSyncAvatarPreviewHelper \endlink.
+	virtual ILipSyncAvatarPreviewHelper* GetLipSyncAvatarPreviewHelper() = 0;
+};
+
+typedef enum
+{
+	ZoomSDKFaceMakeupType_Mustache,
+	ZoomSDKFaceMakeupType_Eyebrow,
+	ZoomSDKFaceMakeupType_Lip
+}ZoomSDKFaceMakeupType;
+
+/// \brief face makeup image information interface.
+///
+class IFaceMakeupImageInfo
+{
+public:
+	/// \brief Get the type of current image.
+	/// \return If the function succeeds, the return value is the type of current image. 
+	virtual ZoomSDKFaceMakeupType GetFaceMakeupType() = 0;
+
+	/// \brief Determine if the current item is being used.
+	/// \return TRUE indicates that the current image is used as the face makeup image.
+	virtual bool IsSelected() = 0;
+
+	/// \brief Get the file path of the current image.
+	/// \return If the function succeeds, the return value is the file path of current image.
+	///Otherwise the function fails and the return value is NULL.
+	virtual const wchar_t* GetImageFilePath() = 0;
+
+	/// \brief Get the name of the current image.
+	/// \return If the function succeeds, the return value is the name of the current image.
+	///Otherwise the function fails and the return value is NULL.
+	virtual const wchar_t* GetImageName() = 0;
+
+	/// \brief Get the index of the current face makeup.
+	/// \return If the function succeeds, the return value is the index of the current image.
+	/// \remark If no image is selected, the index value is -1.
+	virtual int GetIndex() = 0;
+
+	virtual ~IFaceMakeupImageInfo() {};
+};
+
+/// \brief Face makeup context callback event.
+///
+class IFaceMakeupSettingContextEvent
+{
+public:
+	virtual ~IFaceMakeupSettingContextEvent() {}
+
+	/// \brief Callback event notifying that  all face makeup items' thumbnails were downloaded
+	virtual void onFaceMakeupItemThumbnailsDownloaded(ZoomSDKFaceMakeupType type) = 0;
+
+	/// \brief Callback event notifying that the selected face makeup item is downloading.
+	/// \param index The index of the selected face makeup item. 
+	virtual void onFaceMakeupItemDataDownloading(ZoomSDKFaceMakeupType type, int index) = 0;
+
+	/// \brief Callback event notifying whether or not the selected face makeup item has downloaded successfully.
+	/// \param index The index of the selected face makeup item. 
+	/// \param bSuccess TRUE indicates the selected face makeup item has downloaded successfully.
+	virtual void onFaceMakeupItemDataDownloaded(bool bSuccess, ZoomSDKFaceMakeupType type, int index) = 0;
+};
+
+/// \brief face makeup setting interface.
+class IFaceMakeupSettingContext
+{
+public:
+	/// \brief face makeup callback handler. 
+	/// \param pEvent A pointer to the IFaceMakeupSettingContextEvent that receives face makeup event. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Call the function before using any other interface of the same class.
+	virtual SDKError SetEvent(IFaceMakeupSettingContextEvent* pEvent) = 0;
+
+	/// \brief Determine if the face makeup feature is enabled.
+	/// \return TRUE indicates that the face makeup feature is enabled.
+	virtual bool IsFaceMakeupEnabled() = 0;
+
+	/// \brief Determine if the meeting supports the the face makeup feature. 
+	/// \return TRUE indicates that the meeting supports the face makeup feature.
+	virtual bool IsSupportFaceMakeup() = 0;
+
+	/// \brief Enable/Disable the selected face makeup effect always used by the future meeting.
+	/// \param bEnable TRUE indicates enabled. FALSE not.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError EnableFaceMakeupEffectForAllMeeting(bool bEnable) = 0;
+
+	/// \brief Determine if the selected face makeup effect is always used by future meetings.
+	/// \return TRUE indicates that the selected face makeup effect still applies to future meetings.
+	virtual bool IsFaceMakeupEffectForAllMeetingEnabled() = 0;
+
+	/// \brief Get the list of the face makeup images.
+	/// \return If there are images in the list, the return value is a list of the pointers to IFaceMakeupImageInfo.
+	///Otherwise return NULL. To get extended information, see \link IFaceMakeupImageInfo \endlink enum.
+	virtual IList<IFaceMakeupImageInfo* >* GetFaceMakeupImageList() = 0;
+
+	/// \brief Specify an image to be face makeup image.
+	/// \param pImage Specify the image to use. To get extended information, see \link IFaceMakeupImageInfo \endlink enum.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError SetFaceMakeupImage(IFaceMakeupImageInfo* pImage) = 0;
+
+	/// \brief Enable/Disable the lip face makeup effect.
+	/// \param bEnable TRUE indicates enabled. FALSE not.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError SetLipsFaceMakeup(bool bEnable) = 0;
+
+	/// \brief Set the colors of face makeup effect.
+	/// \param type The specified color is used on which face makeup type. For more details, see \link ZoomSDKFaceMakeupType \endlink enum. 
+	/// \param color Specify the color of the face makeup effect in RGB format.  
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError SetColor(ZoomSDKFaceMakeupType type, unsigned long color) = 0;
+
+	/// \brief Set the transparency of face makeup effect.
+	/// \param type The specified transparency is used on which face makeup type. For more details, see \link ZoomSDKFaceMakeupType \endlink enum. 
+	/// \param opactity Specify the transparency of the face makeup effect. The value should between 0 to 100.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError SetOpactity(ZoomSDKFaceMakeupType type, unsigned int opactity) = 0;
+
+	/// \brief Disable all the face makeup effect and reset color/opactity value to default value.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError ResetAllFaceMakeupEffect() = 0;
+
+	/// \brief Get the pointer to ITestVideoDeviceHelper which is used to preview the video with face makeup image.
+	/// \return If the function succeeds, the return value is the pointer to ITestVideoDeviceHelper.
+	///Otherwise the function fails and returns NULL.
+	///For more details, see \link ITestVideoDeviceHelper \endlink.
+	virtual ITestVideoDeviceHelper* GetTestVideoDeviceHelper() = 0;
+};
+
 
 /// \brief Share setting interface.
 ///
@@ -1710,6 +2108,30 @@ public:
 	/// \return If the function succeeds, the return value is SDKErr_Success.
 	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
 	virtual SDKError EnableDoNotDisturbInSharing(bool bEnable) = 0;
+
+	/// \brief Enable/Disable the GPU acceleration when a user adds annotations on a shared screen or whiteboard.
+	/// \param bEnable TRUE indicates to enable acceleration. FALSE indicates to not enable acceleration.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError EnableHardwareAcceleratedAnnotation(bool bEnable) = 0;
+
+	/// \brief Determine if GPU acceleration is enabled when user use annotations on a shared screen or whiteboard.
+	/// \param [out]bEnable TRUE indicates the GPU acceleration is enabled. FALSE not. It validates only when the return value is SDKErr_Success. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise it fails. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError IsAnnotationHardwareAccelerated(bool& bEnable) = 0;
+
+	/// \brief Enable/Disable the GPU acceleration when user shares video.
+	/// \param bEnable TRUE indicates to enable the acceleration. FALSE indicates to not enable acceleration.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise it fails. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError EnableHardwareAcceleratedVideoSharing(bool bEnable) = 0;
+
+	/// \brief Determine if GPU acceleration is enabled when a user shares video.
+	/// \param [out]bEnable TRUE indicates the GPU acceleration is enabled. FALSE indicates the GPU acceleration is not. It validates only when the return value is SDKErr_Success. 
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise it fails. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError IsVideoSharingHardwareAccelerated(bool& bEnable) = 0;
 };
 
 /// \brief Meeting setting interface.
@@ -1784,6 +2206,18 @@ public:
 	///Otherwise failed, returns NULL.
 	///For more details, see \link IVideoFilterSettingContext \endlink.
 	virtual IVideoFilterSettingContext* GetVideoFilterSettings() = 0;
+
+	/// \brief Get 3D avatar settings interface.
+	/// \return If the function succeeds, the return value is an object pointer to I3DAvatarSettingContext.
+	///Otherwise failed, returns NULL.
+	///For more details, see \link I3DAvatarSettingContext \endlink.
+	virtual I3DAvatarSettingContext* Get3DAvatarSettings() = 0;
+
+	/// \brief Get face makeup settings interface.
+	/// \return If the function succeeds, the return value is an object pointer to IFaceMakeupSettingContext.
+	///Otherwise failed, returns NULL.
+	///For more details, see \link IFaceMakeupSettingContext \endlink.
+	virtual IFaceMakeupSettingContext* GetFaceMakeupSettings() = 0;
 
 	/// \brief Get share settings interface.
 	/// \return If the function succeeds, the return value is an object pointer to IShareSettingContext.

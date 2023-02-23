@@ -63,5 +63,21 @@ IMPL_FUNC_0(IMeetingLiveStreamController, StopLiveStream, SDKError, SDKERR_UNINI
 IMPL_FUNC_0(IMeetingLiveStreamController, GetSupportLiveStreamURL, IList<IMeetingLiveStreamItem*>*, NULL)
 // virtual LiveStreamStatus GetCurrentLiveStreamStatus() = 0;
 IMPL_FUNC_0(IMeetingLiveStreamController, GetCurrentLiveStreamStatus, LiveStreamStatus, LiveStreamStatus_None)
+// virtual SDKError StartRawLiveStream(const wchar_t* broadcastURL) = 0;
+IMPL_FUNC_1(IMeetingLiveStreamController, StartRawLiveStream, SDKError, const wchar_t*, broadcastURL, SDKERR_UNINITIALIZE)
+// virtual SDKError StopRawLiveStream() = 0;
+IMPL_FUNC_0(IMeetingLiveStreamController, StopRawLiveStream, SDKError, SDKERR_UNINITIALIZE)
+//virtual bool IsRawLiveStreamSupported() = 0;
+IMPL_FUNC_0(IMeetingLiveStreamController, IsRawLiveStreamSupported, bool, false)
+//virtual SDKError CanStartRawLiveStream() = 0;
+IMPL_FUNC_0(IMeetingLiveStreamController, CanStartRawLiveStream, SDKError, SDKERR_UNINITIALIZE)
+//virtual SDKError RequestRawLiveStream(const wchar_t* broadcastURL) = 0;
+IMPL_FUNC_1(IMeetingLiveStreamController, RequestRawLiveStream, SDKError, const wchar_t*, broadcastURL, SDKERR_UNINITIALIZE)
+//virtual SDKError RemoveRawLiveStreamPrivilege(unsigned int userid) = 0;
+IMPL_FUNC_1(IMeetingLiveStreamController, RemoveRawLiveStreamPrivilege, SDKError, unsigned int, userid, SDKERR_UNINITIALIZE)
+//virtual IList<RawLiveStreamInfo>* GetRawLiveStreamingInfoList() = 0;
+IMPL_FUNC_0(IMeetingLiveStreamController, GetRawLiveStreamingInfoList, IList<RawLiveStreamInfo>*, NULL)
+//virtual IList<unsigned int>* GetRawLiveStreamPrivilegeUserList() = 0;
+IMPL_FUNC_0(IMeetingLiveStreamController, GetRawLiveStreamPrivilegeUserList, IList<unsigned int>*, NULL)
 
 END_ZOOM_SDK_NAMESPACE

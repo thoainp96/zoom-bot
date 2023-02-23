@@ -30,4 +30,4 @@ This project is a Zoom Community Project that is initialized by Zoom and welcomi
 Please see **CONTRIBUTORS** for the project contributors.
 
 ---
-Copyright ©2022 Zoom Video Communications, Inc. All rights reserved.
+Copyright ©2023 Zoom Video Communications, Inc. All rights reserved.

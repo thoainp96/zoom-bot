@@ -55,7 +55,6 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		SDKError AllowLocalRecording(unsigned int userId);
 		SDKError DisAllowLocalRecording(unsigned int userId);
 		SDKError RequestCustomizedLocalRecordingSource();
-		SDKError StartRawRecording();
 
 		void Add_CB_onRecording2MP4Done(onRecording2MP4Done^ cb);
 		void Add_CB_onRecording2MP4Processing(onRecording2MP4Processing^ cb);
@@ -89,7 +88,6 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		virtual SDKError AllowLocalRecording(unsigned int userId);
 		virtual SDKError DisAllowLocalRecording(unsigned int userId);
 		virtual SDKError RequestCustomizedLocalRecordingSource();
-		virtual SDKError StartRawRecording();
 
 		virtual void Add_CB_onRecording2MP4Done(onRecording2MP4Done^ cb)
 		{

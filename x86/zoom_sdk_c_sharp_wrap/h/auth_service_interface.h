@@ -60,6 +60,18 @@ enum LoginFailReason
 	LoginFail_OtherIssue = 100, 
 };
 
+/**
+ * @brief Enumerations of the type for notification service status.
+ */
+typedef enum
+{
+	SDK_Notification_Service_None = 0,
+	SDK_Notification_Service_Starting,
+	SDK_Notification_Service_Started,	
+	SDK_Notification_Service_StartFailed,
+	SDK_Notification_Service_Closed,
+}SDKNotificationServiceStatus;
+
 /*! \struct tagAuthParam
     \brief SDK Authentication parameter with sdk key/secret.
     Here are more detailed structural descriptions.
@@ -182,10 +194,15 @@ public:
 
 	/// \brief Zoom authentication identity will be expired in 10 minutes, please re-auth.
 	virtual void onZoomAuthIdentityExpired() = 0;
+
+	/// \brief Notification service status changed callback.
+	/// \param status The value of transfer meeting service. For more details, see \link SDKNotificationServiceStatus \endlink.
+	virtual void onNotificationServiceStatus(SDKNotificationServiceStatus status) = 0;
 };
 
 class IDirectShareServiceHelper;
 class IOutlookPluginIntegrationHelper;
+class INotificationServiceHelper;
 /// \brief Authentication Service Interface.
 ///
 class IAuthService
@@ -251,6 +268,25 @@ public:
 
 	/// Get the webinal legal notices explained.
 	virtual bool getWebinalLegalNoticesExplained(WebinarLegalNoticesExplainedInfo& explained_info) = 0;
+
+	/// \brief Enable or disable auto register notification service. This is enabled by default.
+	/// \param [in] bEnable True means enabled, otherwise not. 
+	virtual void EnableAutoRegisterNotificationServiceForLogin(bool bEnable) = 0;
+
+	/// \brief Register notification service.
+	/// \param accessToken Initialize parameter of notification service.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError RegisterNotificationService(const wchar_t* accessToken) = 0;
+
+	/// \brief UnRegister notification service.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError UnregisterNotificationService() = 0;
+
+	/// \brief Get notification service helper interface. 
+	/// \return If the function succeeds, the return value is a pointer to INotificationServiceHelper . Otherwise returns NULL.
+	virtual INotificationServiceHelper* GetNotificationServiceHelper() = 0;
 };
 END_ZOOM_SDK_NAMESPACE
 #endif

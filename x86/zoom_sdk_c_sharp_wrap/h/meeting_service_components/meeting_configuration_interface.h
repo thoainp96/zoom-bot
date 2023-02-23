@@ -612,11 +612,6 @@ public:
 	/// \brief Set the maximum duration of the meeting when there is no attendee in the meeting. Default: 24*60.
 	/// \param nDuration Specify the maximum duration in minutes.
 	virtual void SetMaxDurationForOnlyHostInMeeting(int nDuration) = 0;
-
-	/// \brief Set whether to forbid confidential watermark. Default: FALSE.
-	/// \param bDisable TRUE indicates to forbid confidential watermark. FALSE not.
-	/// \return If watermark confidential is forbidden, the return value is TRUE. Otherwise FALSE.
-	virtual bool DisableConfidentialWatermark(bool bDisable) = 0;
 };
 
 END_ZOOM_SDK_NAMESPACE

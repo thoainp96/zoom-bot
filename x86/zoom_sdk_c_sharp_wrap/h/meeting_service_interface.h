@@ -72,7 +72,8 @@ enum MeetingFailCode
 	CONF_FAIL_REMOVED_BY_HOST = 61, ///<Removed by the host. 
 	MEETING_FAIL_HOST_DISALLOW_OUTSIDE_USER_JOIN = 62,   //Forbidden to join meeting
 	MEETING_FAIL_APP_PRIVILEGE_TOKEN_ERROR = 500,  //App join token error.
-	MEETING_FAIL_JMAK_USER_EMAIL_NOT_MATCH = 1143 //Jmak user email not match
+	MEETING_FAIL_JMAK_USER_EMAIL_NOT_MATCH = 1143, //Jmak user email not match
+	MEETING_FAIL_UNKNOWN = 0xffff,
 
 };  
 
@@ -205,7 +206,6 @@ enum ZoomUserType
 */
 typedef struct tagStartParam4WithoutLogin
 {
-	const wchar_t* userID;///<User ID.
 	const wchar_t* userZAK;///<ZOOM access token.
 	const wchar_t* userName;///<Username when logged in the meeting.
 	ZoomUserType   zoomuserType;///<User type.
@@ -460,9 +460,11 @@ class IClosedCaptionController;
 class IMeetingQAController;
 class IMeetingBOController;
 class IMeetingInterpretationController;
+class IMeetingSignInterpretationController;
 class IEmojiReactionController;
 class IMeetingAANController;
 class IMeetingRawArchivingController;
+class ICustomImmersiveController;
 /// \brief Meeting Service Interface
 ///
 class IMeetingService
@@ -619,6 +621,10 @@ public:
 	/// \return If the function succeeds, the return value is a pointer to IMeetingInterpretationController. Otherwise returns NULL.
 	virtual IMeetingInterpretationController* GetMeetingInterpretationController() = 0;
 
+	/// \brief Get the sign interpretation controller.
+	/// \return If the function succeeds, the return value is a pointer to IMeetingSignInterpretationController. Otherwise returns NULL.
+	virtual IMeetingSignInterpretationController* GetMeetingSignInterpretationController() = 0;
+
 	/// \brief Get the Reaction controller.
 	/// \return If the function succeeds, the return value is a pointer to IEmojiReactionController. Otherwise returns NULL.
 	virtual IEmojiReactionController* GetMeetingEmojiReactionController() = 0;
@@ -630,6 +636,10 @@ public:
 	/// \brief Get the Raw Archiving controller.
 	/// \return If the function succeeds, the return value is a pointer to IMeetingRawArchivingController. Otherwise returns NULL.
 	virtual IMeetingRawArchivingController* GetMeetingRawArchivingController() = 0;
+
+	/// \brief Get the immersive controller.
+	/// \return If the function succeeds, the return value is a pointer to ICustomImmersiveController. Otherwise the function returns NULL.
+	virtual ICustomImmersiveController* GetMeetingImmersiveController() = 0;
 };
 END_ZOOM_SDK_NAMESPACE
 #endif

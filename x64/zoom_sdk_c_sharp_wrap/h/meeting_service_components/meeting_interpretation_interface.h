@@ -143,7 +143,7 @@ public:
 	virtual IList<IInterpretationLanguage*>* GetAvailableLanguageList() = 0;
 
 	/// \brief Join some language channel.
-	/// \param lanID Specify the language channel.
+	/// \param lanID Specify the language channel. If lanID is -1 means join major meeting.
 	/// \return If the function succeeds, the return value is SDKErr_Success. Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
 	virtual SDKError JoinLanguageChannel(int lanID) = 0;
 	

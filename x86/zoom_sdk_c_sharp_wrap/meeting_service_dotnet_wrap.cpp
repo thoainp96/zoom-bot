@@ -225,7 +225,6 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 			if (nullptr == startParam.withoutloginStart)
 				return SDKError::SDKERR_INVALID_PARAMETER;
 
-			startParam_c.param.withoutloginStart.userID = PlatformString2WChar(startParam.withoutloginStart->userID);
 			startParam_c.param.withoutloginStart.userZAK = PlatformString2WChar(startParam.withoutloginStart->userZAK);
 			startParam_c.param.withoutloginStart.zoomuserType = (ZOOM_SDK_NAMESPACE::ZoomUserType)startParam.withoutloginStart->zoomuserType;
 			startParam_c.param.withoutloginStart.userName = PlatformString2WChar(startParam.withoutloginStart->userName);

@@ -21,7 +21,7 @@ namespace zoom_sdk_demo
                 ZOOM_SDK_DOTNET_WRAP.InitParam param = new ZOOM_SDK_DOTNET_WRAP.InitParam();
                 param.web_domain = "https://zoom.us";
                 ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.Initialize(param);
-                Console.WriteLine($"{err}");
+                Console.WriteLine($"error {err}");
                 if (ZOOM_SDK_DOTNET_WRAP.SDKError.SDKERR_SUCCESS == err)
                 {
 

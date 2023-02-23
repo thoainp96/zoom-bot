@@ -279,6 +279,12 @@ public:
 	/// \remarks Valid only for Zoom style user interface mode.
 	virtual SDKError HideOrShowNoVideoUserOnVideoWall(bool bHide) = 0;
 
+	/// \brief Display or not the userself's view.
+	/// \return TRUE indicates to hide, FALSE show.
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Valid only for Zoom style user interface mode.
+	virtual SDKError HideOrShowSelfView(bool bHide) = 0;
+
 	/// \brief Query if it is able to demand the specified user to turn on the video.
 	/// \param userid Specifies the user ID to query.
 	/// \return If the function succeeds, the return value is SDKErr_Success.
@@ -333,6 +339,26 @@ public:
 	/// \brief Get camera controller interface.
 	/// \return If the function succeeds, the return value is a pointer to ICameraController. Otherwise returns NULL.
 	virtual ICameraController* GetMyCameraController() = 0;
+
+	/// \brief Stop the incoming video.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	/// \remarks Valid for both Zoom style and customize user interface mode.
+	virtual SDKError StopIncomingVideo(bool bStop) = 0;
+
+	/// \brief Determine if the incoming video is stopped.
+	/// \return TRUE indicates that the incoming video is stopped. 
+	virtual bool IsIncomingVideoStoped() = 0;
+
+	/// \brief Determine if show the last used avatar in the meeting.
+	/// \param bShow TRUE indicates to show the last used avatar.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError ShowAvatar(bool bShow) = 0;
+
+	/// \brief Determine if the meeting is showing the avatar.
+	/// \return TRUE indicates the meeting is showing the avatar.
+	virtual bool IsShowAvatar() = 0;
 };
 END_ZOOM_SDK_NAMESPACE
 #endif

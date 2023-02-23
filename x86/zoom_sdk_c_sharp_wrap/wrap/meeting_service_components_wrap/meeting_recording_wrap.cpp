@@ -46,8 +46,6 @@ IMPL_FUNC_1(IMeetingRecordingController, DisAllowLocalRecording, SDKError, unsig
 IMPL_FUNC_0(IMeetingRecordingController, RequestCustomizedLocalRecordingSource, SDKError, SDKERR_UNINITIALIZE)
 //virtual RecordingStatus GetCloudRecordingStatus() = 0;
 IMPL_FUNC_0(IMeetingRecordingController, GetCloudRecordingStatus, RecordingStatus, Recording_Stop)
-//virtual RecordingStatus StartRawRecording() = 0;
-IMPL_FUNC_0(IMeetingRecordingController, StartRawRecording, SDKError, SDKERR_UNINITIALIZE)
 
 
 END_ZOOM_SDK_NAMESPACE

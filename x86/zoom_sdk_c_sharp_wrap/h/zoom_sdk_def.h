@@ -82,7 +82,9 @@ enum SDK_LANGUAGE_ID
 	LANGUAGE_Vietnamese,///<In Vietnamese.
 	LANGUAGE_Italian,///<In Italian.
 	LANGUAGE_Polish,///<In Polish.
-	LANGUAGE_Turkish///<In Turkish.
+	LANGUAGE_Turkish,///<In Turkish.
+	LANGUAGE_Indonesian,//<In Indonesian.
+	LANGUAGE_Dutch//<In Dutch.
 };
 
 /*! \struct tagWndPosition

@@ -513,6 +513,11 @@ public:
 	/// \brief When host change the BO status, all users receive the event.
 	/// \param eStatus, current status of BO.
 	virtual void onBOStatusChanged(BO_STATUS eStatus) = 0; 
+
+	/// \brief Whenever the host switches you to another BO while you are assigned but haven't joined the BO, you will receive this event.
+	/// \param strNewBOName The new BO name.
+	/// \param strNewBOID The new BO ID. If the current user is IBOAttendee, then the 2nd parameter strNewBOID will return NULL.
+	virtual void onBOSwitchRequestReceived(const wchar_t* strNewBOName, const wchar_t* strNewBOID) = 0;
 };
 
 /// \brief Meeting breakout rooms controller interface

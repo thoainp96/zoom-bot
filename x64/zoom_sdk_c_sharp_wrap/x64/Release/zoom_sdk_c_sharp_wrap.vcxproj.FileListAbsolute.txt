@@ -1,0 +1,2 @@
+C:\Users\Thoai_Nguyen\Downloads\zoom-c-sharp-wrapper-5.13.5.12103\zoom-c-sharp-wrapper-5.13.5.12103\x64\zoom_sdk_c_sharp_wrap\x64\Release\zoom_sdk_c_sharp_wrap.vcxproj.AssemblyReference.cache
+D:\Source\zoom\zoom\x64\zoom_sdk_c_sharp_wrap\x64\Release\zoom_sdk_c_sharp_wrap.vcxproj.AssemblyReference.cache

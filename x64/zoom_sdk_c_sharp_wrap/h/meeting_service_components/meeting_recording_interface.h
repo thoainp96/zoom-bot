@@ -22,6 +22,41 @@ enum RecordingStatus
 	Recording_Connecting,///Connecting, only for cloud recording.
 };
 
+/*! \enum RequestLocalRecordingStatus
+	\brief Request local recording privilege status.
+	Here are more detailed structural descriptions.
+*/
+enum RequestLocalRecordingStatus
+{
+	RequestLocalRecording_Granted,///host grant the request.
+	RequestLocalRecording_Denied,///host deny the request.
+	RequestLocalRecording_Timeout,///the request local recording timeout.	
+};
+
+/// \brief Process after the host receives the requirement from the user to give the local recording privilege.
+class IRequestLocalRecordingPrivilegeHandler
+{
+public:
+	virtual ~IRequestLocalRecordingPrivilegeHandler() {};
+	/// \brief Get the request ID.
+	/// \return If the function succeeds, the return value is the request ID.
+	virtual const wchar_t* GetRequestId() = 0;
+
+	/// \brief Get the user ID who requested privilege.
+	/// \return If the function succeeds, the return value is the user ID. Otherwise, this returns 0.
+	virtual unsigned int GetRequesterId() = 0;
+
+	/// \brief Get the user name who requested privileges.
+	/// \return If the function succeeds, the return value is the user name.
+	virtual const wchar_t* GetRequesterName() = 0;
+
+	/// \brief Allows the user to start local recording and finally self-destroy.
+	virtual SDKError GrantLocalRecordingPrivilege() = 0;
+
+	/// \brief Denies the user permission to start local recording and finally self-destroy.
+	virtual SDKError DenyLocalRecordingPrivilege() = 0;
+};
+
 class ICustomizedLocalRecordingLayoutHelper;
 /// \brief Meeting recording callback event.
 ///
@@ -54,10 +89,18 @@ public:
 	/// \param bCanRec TRUE indicates to enable to record.
 	virtual void onRecordPriviligeChanged(bool bCanRec) = 0;
 
+	/// \brief Callback event that the status of request local recording privilege.
+	/// \param status Value of request local recording privilege status. For more details, see \link RequestLocalRecordingStatus \endlink enum.
+	virtual void onLocalRecordingPrivilegeRequestStatus(RequestLocalRecordingStatus status) = 0;
+
 	/// \brief Callback event that the local recording source changes in the custom user interface mode.
 	/// \param layout_helper An object pointer to ICustomizedLocalRecordingLayoutHelper. For more details, see \link ICustomizedLocalRecordingLayoutHelper \endlink.
 	///The layout_helper won't be released till the call ends. The user needs to complete the related layout before the call ends. 
 	virtual void onCustomizedLocalRecordingSourceNotification(ICustomizedLocalRecordingLayoutHelper* layout_helper) = 0;
+
+	/// \brief Callback event when a user requests local recording privilege.
+	/// \param handler A pointer to the IRequestLocalRecordingPrivilegeHandler. For more details, see \link IRequestLocalRecordingPrivilegeHandler \endlink.
+	virtual void onLocalRecordingPrivilegeRequested(IRequestLocalRecordingPrivilegeHandler* handler) = 0;
 };
 
 /// \brief Meeting recording controller interface.
@@ -70,6 +113,16 @@ public:
 	/// \return If the function succeeds, the return value is SDKErr_Success.
 	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
 	virtual SDKError SetEvent(IMeetingRecordingCtrlEvent* pEvent) = 0;
+
+	/// \brief Determine if the user owns the authority to enable the local recording. 	
+	/// \return If the host is enabled to handle local recording request, the return value is SDKErr_Success. 
+	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError IsSupportRequestLocalRecordingPrivilege() = 0;
+
+	/// \brief Send a request to enable the SDK to start local recording.
+	/// \return If the function succeeds, the return value is SDKErr_Success and the SDK will send the request.
+	///Otherwise it fails and the request will not be sent. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError RequestLocalRecordingPrivilege() = 0;
 
 	/// \brief Start recording.
 	/// \param [out] startTimestamp The timestamps when start recording.

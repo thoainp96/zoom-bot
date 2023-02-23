@@ -30,6 +30,8 @@ DEFINE_FUNC_0(DestroyAllShareRender, SDKError)
 CallBack_FUNC_1(onVideoContainerDestroyed, ICustomizedVideoContainer*, pContainer)
 //virtual void onShareRenderDestroyed(ICustomizedShareRender* pRender) = 0;
 CallBack_FUNC_1(onShareRenderDestroyed, ICustomizedShareRender*, pRender)
+//virtual void onImmersiveContainerDestroyed() = 0;
+CallBack_FUNC_0(onImmersiveContainerDestroyed)
 
 END_CLASS_DEFINE(ICustomizedUIMgr)
 END_ZOOM_SDK_NAMESPACE

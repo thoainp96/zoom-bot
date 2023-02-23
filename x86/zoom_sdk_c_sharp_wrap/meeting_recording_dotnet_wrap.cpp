@@ -283,12 +283,6 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 			GetMeetingRecordingController().RequestCustomizedLocalRecordingSource();
 	}
 
-	SDKError CMeetingRecordingControllerDotNetWrap::StartRawRecording()
-	{
-		return (SDKError)ZOOM_SDK_NAMESPACE::CSDKWrap::GetInst().GetMeetingServiceWrap().
-			GetMeetingRecordingController().StartRawRecording();
-	}
-
 	void CMeetingRecordingControllerDotNetWrap::BindEvent()
 	{
 		ZOOM_SDK_NAMESPACE::IMeetingRecordingControllerWrap& meetingRec = ZOOM_SDK_NAMESPACE::CSDKWrap::GetInst().GetMeetingServiceWrap().GetMeetingRecordingController();

@@ -146,6 +146,15 @@ public:
 	///Otherwise failed. To get extended error information, see \link SDKError \endlink enum.
 	/// \remarks Valid for both ZOOM style and user custom interface mode.
 	virtual SDKError EnablePlayChimeWhenEnterOrExit(bool bEnable) = 0;
+
+	/// \brief Stop the incoming audio.
+	/// \return If the function succeeds, the return value is SDKErr_Success.
+	///Otherwise the function fails and returns an error. To get extended error information, see \link SDKError \endlink enum.
+	virtual SDKError StopIncomingAudio(bool bStop) = 0;
+
+	/// \brief Determine if the incoming audio is stopped.
+	/// \return TRUE indicates that the incoming audio is stopped. 
+	virtual bool IsIncomingAudioStopped() = 0;
 };
 END_ZOOM_SDK_NAMESPACE
 #endif

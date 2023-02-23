@@ -122,4 +122,5 @@ IZoomSDKRendererWrap& CSDKRendererWrap::GetRendererWrap()
 	return IZoomSDKRendererWrap::GetInst();
 }
 
+
 END_ZOOM_SDK_NAMESPACE

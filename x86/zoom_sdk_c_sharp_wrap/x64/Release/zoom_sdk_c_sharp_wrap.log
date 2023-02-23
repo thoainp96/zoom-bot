@@ -1,0 +1,26 @@
+﻿  Stdafx.cpp
+  AssemblyInfo.cpp
+  auth_service_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  customized_annotation_obj_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  customized_resource_helper_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  customized_share_render_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  customized_ui_mgr_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  customized_video_container_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  customized_annotation_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'
+  meeting_AAN_helper_dotnet_wrap.cpp
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned int'
+D:\Source\zoom\zoom\x86\zoom_sdk_c_sharp_wrap\zoom_sdk_dotnet_wrap_util.h(144,34): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned int'

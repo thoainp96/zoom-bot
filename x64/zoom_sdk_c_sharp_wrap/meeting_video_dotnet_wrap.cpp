@@ -24,6 +24,12 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 			if (CMeetingVideoControllerDotNetWrap::Instance)
 				CMeetingVideoControllerDotNetWrap::Instance->ProcSpotlightedUserListChangeNotification(Convert(plstSpotlightedUserID));
 		}
+
+		void onActiveSpeakerVideoUserChanged(unsigned int userId)
+		{
+			if (CMeetingVideoControllerDotNetWrap::Instance)
+				CMeetingVideoControllerDotNetWrap::Instance->ProcOnActiveSpeakerVideoUserChanged(userId);
+		}
 	private:
 		MeetingVideoControllerEventHanlder() {}
 	};
@@ -38,6 +44,10 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		ZOOM_SDK_NAMESPACE::CSDKWrap::GetInst().GetMeetingServiceWrap().GetMeetingVideoController().m_cbonSpotlightedUserListChangeNotification =
 			std::bind(&MeetingVideoControllerEventHanlder::onSpotlightedUserListChangeNotification,
 				&MeetingVideoControllerEventHanlder::GetInst(), std::placeholders::_1);
+
+		ZOOM_SDK_NAMESPACE::CSDKWrap::GetInst().GetMeetingServiceWrap().GetMeetingVideoController().m_cbonActiveSpeakerVideoUserChanged =
+			std::bind(&MeetingVideoControllerEventHanlder::onActiveSpeakerVideoUserChanged,
+				&MeetingVideoControllerEventHanlder::GetInst(), std::placeholders::_1);
 	}
 
 	void CMeetingVideoControllerDotNetWrap::ProcUserVideoStatusChange(unsigned int userId, VideoStatus status)
@@ -48,6 +58,11 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 	void CMeetingVideoControllerDotNetWrap::ProcSpotlightedUserListChangeNotification(array<unsigned int>^ lstSpotlightedUserID)
 	{
 		event_onSpotlightVideoChangeNotification(lstSpotlightedUserID);
+	}
+
+	void CMeetingVideoControllerDotNetWrap::ProcOnActiveSpeakerVideoUserChanged(unsigned int userId)
+	{
+		event_onActiveSpeakerVideoUserChanged(userId);
 	}
 
 	SDKError CMeetingVideoControllerDotNetWrap::MuteVideo()
@@ -86,5 +101,10 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 	{
 		return (SDKError)ZOOM_SDK_NAMESPACE::CSDKWrap::GetInst().GetMeetingServiceWrap().
 			GetMeetingVideoController().HideOrShowNoVideoUserOnVideoWall(bHide);
+	}
+	SDKError CMeetingVideoControllerDotNetWrap::AskAttendeeToStartVideo(unsigned int userid) 
+	{
+		return (SDKError)ZOOM_SDK_NAMESPACE::CSDKWrap::GetInst().GetMeetingServiceWrap().
+			GetMeetingVideoController().AskAttendeeToStartVideo(userid);
 	}
 }

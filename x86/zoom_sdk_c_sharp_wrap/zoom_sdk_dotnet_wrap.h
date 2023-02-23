@@ -8,7 +8,6 @@ using namespace System;
 #include "setting_service_dotnet_wrap.h"
 #include "customized_ui_mgr_dotnet_wrap.h"
 #include "customized_resource_helper_dotnet_wrap.h"
-#include "raw_audio_service_dotnet_wrap.h"
 
 namespace ZOOM_SDK_DOTNET_WRAP {
 	public ref class CZoomSDKeDotNetWrap sealed
@@ -27,7 +26,6 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		ISettingServiceDotNetWrap^ GetSettingServiceWrap();
 		ICustomizedUIMgrDotNetWrap^ GetCustomizedUIMgrWrap();
 		ICustomizedResourceHelperDotNetWrap^ CZoomSDKeDotNetWrap::RetrieveCustomizedResourceHelperWrap();
-		IRawAudioServiceDotNetWrap^ GetRawAudioServiceWrap();
 		
 	private:
 		static CZoomSDKeDotNetWrap^ m_Instance = gcnew CZoomSDKeDotNetWrap;

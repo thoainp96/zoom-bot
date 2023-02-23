@@ -4,17 +4,17 @@
 exe
 C#
 .cs
-D:\zoom-c-sharp-wrapper-5.12.2.9319\x86\zoom_sdk_demo\obj\Release\
+D:\Source\zoom\zoom\x86\zoom_sdk_demo\obj\Release\
 zoom_sdk_demo
 none
 false
 TRACE
-D:\zoom-c-sharp-wrapper-5.12.2.9319\x86\zoom_sdk_demo\App.xaml
+D:\Source\zoom\zoom\x86\zoom_sdk_demo\App.xaml
 2-268338058
 
-7703702048
-141268439861
+81746308514
+141559878971
 MainWindow.xaml;start_join_meeting.xaml;
 
-False
+True
 

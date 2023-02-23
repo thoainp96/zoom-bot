@@ -39,5 +39,7 @@ CallBack_FUNC_1(onWatingRoomUserLeft, unsigned int, userID)
 CallBack_FUNC_1(onWaitingRoomPresetAudioStatusChanged, bool, bAudioCanTurnOn)
 //virtual void onWaitingRoomPresetVideoStatusChanged( bool bVideoCanTurnOn) = 0;
 CallBack_FUNC_1(onWaitingRoomPresetVideoStatusChanged, bool, bVideoCanTurnOn)
+//virtual void onCustomWaitingRoomDataUpdated(CustomWaitingRoomData& bData, IWaitingRoomDataDownloadHandler* bHandler) = 0;
+CallBack_FUNC_2(onCustomWaitingRoomDataUpdated, CustomWaitingRoomData&, bData, IWaitingRoomDataDownloadHandler*, bHandler)
 END_CLASS_DEFINE(IMeetingWaitingRoomController)
 END_ZOOM_SDK_NAMESPACE

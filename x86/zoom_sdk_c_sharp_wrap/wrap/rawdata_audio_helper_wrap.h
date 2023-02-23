@@ -1,5 +1,4 @@
 #pragma once
-
 #include "common_include.h"
 BEGIN_ZOOM_SDK_NAMESPACE
 IZoomSDKAudioRawDataHelper* InitIZoomSDKAudioRawDataHelperFunc(IZoomSDKAudioRawDataDelegate* pEvent);
